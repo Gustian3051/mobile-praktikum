@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:praktikum3/screens/camera_page.dart';
 import 'package:praktikum3/screens/home_page.dart';
 import 'package:praktikum3/screens/image_list_page.dart';
-// import 'package:praktikum3/screens/location_page.dart';
-import 'package:praktikum3/screens/sensor_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +18,6 @@ class MyApp extends StatelessWidget {
         '/': (context) => HomePage(),
         '/camera': (context) => CameraPage(),
         '/listview': (context) => ImageListPage(),
-        '/sensor': (context) => SensorPage(),
       },
     );
   }

@@ -6,7 +6,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Akses Perangkat Keras')),
+      appBar: AppBar(title: Center(child: Text('Akses Perangkat Keras'))),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -23,13 +23,6 @@ class HomePage extends StatelessWidget {
                 Navigator.pushNamed(context, '/listview');
               },
               child: Text('Buka Galeri'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/sensor');
-              },
-              child: Text('Buka Sensor'),
             ),
           ],
         ),

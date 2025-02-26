@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:praktikum3/models/image_model.dart';
+import 'package:praktikum3/screens/camera_page.dart';
 import 'package:praktikum3/services/database_helper.dart';
 
 class ImageListPage extends StatefulWidget {
@@ -38,7 +39,7 @@ class _ImageListPageState extends State<ImageListPage> {
                   print(
                     'Stored image path: ${images[index].imagePath}',
                   ); // Debugging path
-                  File imageFile = File(images[index].imagePath);
+                  File imageFile = File(images[index].imagePath.toString());
                   if (!imageFile.existsSync()) {
                     print(
                       'File not found: ${images[index].imagePath}',
@@ -51,13 +52,31 @@ class _ImageListPageState extends State<ImageListPage> {
                     );
                   }
                   return ListTile(
-                    leading: Image.file(
-                      imageFile,
-                      width: 50,
-                      height: 50,
-                      fit: BoxFit.cover,
+                    leading: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => ImagePreviewPage(
+                                  imagePath: images[index].imagePath!,
+                                  location: images[index].location!,
+                                  accelerometerX: images[index].accelerometerX!,
+                                  accelerometerY: images[index].accelerometerY!,
+                                  accelerometerZ: images[index].accelerometerZ!,
+                                ),
+                          ),
+                        );
+                      },
+                      child: Image.file(
+                        imageFile,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     title: Text('Image ${images[index].id}'),
+                    subtitle: Text('Lokasi: ${images[index].location}'),
                   );
                 },
               ),

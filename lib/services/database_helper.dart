@@ -18,12 +18,31 @@ class DataBaseHelper {
     final path = join(dbPath, filePath);
     return await openDatabase(
       path,
-      version: 1,
+      version: 2, // Ganti versi agar terjadi migrasi
       onCreate: (db, version) async {
-        await db.execute('''CREATE TABLE images (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          imagePath TEXT NOT NULL
-        )''');
+        await db.execute('''
+          CREATE TABLE images (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            imagePath TEXT NOT NULL,
+            location TEXT NOT NULL,
+            accelerometerX REAL,
+            accelerometerY REAL,
+            accelerometerZ REAL
+          )
+        ''');
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.execute('''
+            ALTER TABLE images ADD COLUMN accelerometerX REAL;
+          ''');
+          await db.execute('''
+            ALTER TABLE images ADD COLUMN accelerometerY REAL;
+          ''');
+          await db.execute('''
+            ALTER TABLE images ADD COLUMN accelerometerZ REAL;
+          ''');
+        }
       },
     );
   }
